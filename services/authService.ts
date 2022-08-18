@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import  bcryptjs from "bcryptjs"
 import User from './../models/mariadb/user';
+import Auth from "../utils/auth/Auth";
 
 export const loginUserService = async(req:Request, res:Response)=>{
 
@@ -19,16 +20,19 @@ export const loginUserService = async(req:Request, res:Response)=>{
                 };
         }
 
-       const validPassword = bcryptjs.compareSync(password,usuario.password)
-
-       
-
-
-       return {
-        msg : 'Usuario registrado correctamente ',
-        usuario
-        };
-
+       //validmos el password
+       const validPassword = Auth.compare(password,usuario.password,(error: string | null, match: boolean | null) => {
+               
+                if(error){
+                        return {
+                                msg : 'Usuario/Passwrod no son correctos - correo',
+                                usuario
+                        };
+                }else{
+                        //generamos token
+                }
+        
+       })
         } catch (error) {
                 
         }

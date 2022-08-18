@@ -13,8 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loginUserService = void 0;
-const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const user_1 = __importDefault(require("./../models/mariadb/user"));
+const Auth_1 = __importDefault(require("../utils/auth/Auth"));
 const loginUserService = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     try {
@@ -26,11 +26,18 @@ const loginUserService = (req, res) => __awaiter(void 0, void 0, void 0, functio
                 usuario
             };
         }
-        const validPassword = bcryptjs_1.default.compareSync(password, usuario.password);
-        return {
-            msg: 'Usuario registrado correctamente ',
-            usuario
-        };
+        //validmos el password
+        const validPassword = Auth_1.default.compare(password, usuario.password, (error, match) => {
+            if (error) {
+                return {
+                    msg: 'Usuario/Passwrod no son correctos - correo',
+                    usuario
+                };
+            }
+            else {
+                //generamos token
+            }
+        });
     }
     catch (error) {
     }
