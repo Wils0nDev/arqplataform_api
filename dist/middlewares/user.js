@@ -18,7 +18,6 @@ const limitValidate = (params) => __awaiter(void 0, void 0, void 0, function* ()
 });
 exports.limitValidate = limitValidate;
 const ValidateCampos = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
     const errors = (0, express_validator_1.validationResult)(req);
     if (!errors.isEmpty()) {
         return res.status(400).json(errors);

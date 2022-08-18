@@ -12,7 +12,6 @@ export const limitValidate = async (params:ParamSchema) => {
 
 
 export const ValidateCampos = async (req:Request, res:Response, next:NextFunction) => {
-  console.log(req.body)
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
       return res.status(400).json(errors);

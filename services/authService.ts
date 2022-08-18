@@ -21,7 +21,13 @@ export const loginUserService = async(req:Request, res:Response)=>{
 
        const validPassword = bcryptjs.compareSync(password,usuario.password)
 
-        return usuario
+       
+
+
+       return {
+        msg : 'Usuario registrado correctamente ',
+        usuario
+        };
 
         } catch (error) {
                 

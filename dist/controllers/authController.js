@@ -16,7 +16,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const resp = yield (0, authService_1.loginUserService)(req, res);
     try {
         res.status(200).json({
-            resp
+            data: resp
         });
     }
     catch (error) {

@@ -3,7 +3,7 @@ import { getUsuario, getUsuarios, postUsuario, putUsuario } from "../../controll
 
 const router = Router();
 
-router.get('/', getUsuarios);
+router.get('/',getUsuarios);
 router.get('/:id', getUsuario);
 router.post('/', postUsuario);
 router.put('/:id', putUsuario);

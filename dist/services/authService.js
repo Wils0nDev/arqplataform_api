@@ -20,7 +20,6 @@ const loginUserService = (req, res) => __awaiter(void 0, void 0, void 0, functio
     try {
         //Verificamos si existe el email
         const usuario = yield user_1.default.findOne({ where: { email: email } });
-        console.log(usuario);
         if (!usuario) {
             return {
                 msg: 'Usuario/Passwrod no son correctos - correo',
@@ -28,7 +27,10 @@ const loginUserService = (req, res) => __awaiter(void 0, void 0, void 0, functio
             };
         }
         const validPassword = bcryptjs_1.default.compareSync(password, usuario.password);
-        return usuario;
+        return {
+            msg: 'Usuario registrado correctamente ',
+            usuario
+        };
     }
     catch (error) {
     }
