@@ -1,4 +1,5 @@
-export interface response {
+export interface ResponseApi {
     msg: string,
-    data: object
+    data: any,
+    error: any
 }

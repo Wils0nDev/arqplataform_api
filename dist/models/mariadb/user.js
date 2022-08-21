@@ -17,11 +17,16 @@ User.init({
     sex: { type: sequelize_1.DataTypes.CHAR, allowNull: false },
     profile_id: { type: sequelize_1.DataTypes.INTEGER, allowNull: false },
     createdAt: { type: sequelize_1.DataTypes.DATE, defaultValue: sequelize_1.DataTypes.NOW },
-    updatedAt: { type: sequelize_1.DataTypes.DATE, defaultValue: sequelize_1.DataTypes.NOW },
-    deleted_at: { type: sequelize_1.DataTypes.DATE, defaultValue: sequelize_1.DataTypes.NOW }
+    updatedAt: { type: sequelize_1.DataTypes.DATE },
+    deleted_at: { type: sequelize_1.DataTypes.DATE }
 }, {
     sequelize: dbMariaDb_1.default,
-    tableName: 'users'
+    tableName: 'users',
 });
+User.prototype.toJSON = function () {
+    const user = Object.assign({}, this.get());
+    delete user.password;
+    return user;
+};
 exports.default = User;
 //# sourceMappingURL=user.js.map

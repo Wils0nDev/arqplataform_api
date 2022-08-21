@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.loginUserService = void 0;
 const user_1 = __importDefault(require("./../models/mariadb/user"));
 const Auth_1 = __importDefault(require("../utils/auth/Auth"));
+const Constante_1 = require("./../config/Constante");
 const loginUserService = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     try {
@@ -22,24 +23,35 @@ const loginUserService = (req, res) => __awaiter(void 0, void 0, void 0, functio
         const usuario = yield user_1.default.findOne({ where: { email: email } });
         if (!usuario) {
             return {
-                msg: 'Usuario/Passwrod no son correctos - correo',
-                usuario
+                msg: "Usuario/Passwrod no son correctos - correo",
+                data: usuario,
+                error: null,
             };
         }
+        console.log(usuario.password);
         //validmos el password
-        const validPassword = Auth_1.default.compare(password, usuario.password, (error, match) => {
-            if (error) {
-                return {
-                    msg: 'Usuario/Passwrod no son correctos - correo',
-                    usuario
-                };
-            }
-            else {
-                //generamos token
-            }
-        });
+        const validPassword = Auth_1.default.compareSync(password, usuario.password);
+        if (!validPassword) {
+            return {
+                msg: "Usuario/Passwrod no son correctos - password",
+                data: usuario,
+                error: null,
+            };
+        }
+        //generamos token
+        const token = yield Auth_1.default.generarToken(usuario.id, Constante_1.Constantes.key);
+        return {
+            msg: "Usuario/Passwrod no son correctos - token",
+            data: { usuario, token },
+            error: null,
+        };
     }
     catch (error) {
+        return {
+            msg: "Usuario/Passwrod no son correctos - error",
+            data: null,
+            error: error,
+        };
     }
 });
 exports.loginUserService = loginUserService;

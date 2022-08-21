@@ -10,6 +10,7 @@ export const loginUser = async (req:Request, res: Response)=>{
     const resp  = await loginUserService(req,res)
     try {
 
+        
         res.status(200).json({
             data:resp
         })

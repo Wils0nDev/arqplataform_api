@@ -22,9 +22,19 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt = __importStar(require("bcryptjs"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 class Auth {
+    static hashPasswordSync(password, rounds) {
+        return bcrypt.hashSync(password, rounds);
+    }
+    static compareSync(password, dbHash) {
+        return bcrypt.compareSync(password, dbHash);
+    }
     static hashPassword(password, rounds, callback) {
         bcrypt.hash(password, rounds, (error, hash) => {
             callback(error, hash);
@@ -40,6 +50,22 @@ class Auth {
                 // passwords do not match
                 callback('Invalid password match', null);
             }
+        });
+    }
+    static generarToken(id, secretkey) {
+        return new Promise((resolve, reject) => {
+            const payload = { id };
+            jsonwebtoken_1.default.sign(payload, secretkey, {
+                expiresIn: 15
+            }, (err, token) => {
+                if (err) {
+                    console.log(err);
+                    reject('No se puede generar el JWT');
+                }
+                else {
+                    resolve(token);
+                }
+            });
         });
     }
 }

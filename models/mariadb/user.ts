@@ -14,12 +14,12 @@ class User extends Model
   public lastname!: string;
   public email!: string;
   public password!: string;
-  public image!: string;
+  public image?: string;
   public sex!: number;
   public profile_id!: number;
-  public createdAt!: Date;
-  public updatedAt!: Date;
-  public deleted_at!: Date;
+  public createdAt?: Date;
+  public updatedAt?: Date;
+  public deleted_at?: Date;
   
  }
 
@@ -33,12 +33,21 @@ class User extends Model
   sex : {type: DataTypes.CHAR ,allowNull: false},
   profile_id :{type: DataTypes.INTEGER,allowNull: false },
   createdAt :  {type: DataTypes.DATE,defaultValue: DataTypes.NOW },
-  updatedAt :  {type: DataTypes.DATE,defaultValue: DataTypes.NOW} ,
-  deleted_at :  {type: DataTypes.DATE,defaultValue: DataTypes.NOW}
+  updatedAt :  {type: DataTypes.DATE} ,
+  deleted_at :  {type: DataTypes.DATE}
  },
   {
     sequelize: mariaDB,
-    tableName: 'users'
+    tableName: 'users',
+
   }
  )
+
+ User.prototype.toJSON =  function () {
+  const user : UserI = Object.assign({}, this.get());
+
+  delete user.password 
+  
+  return user;
+}
  export default User;
