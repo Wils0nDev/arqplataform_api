@@ -44,11 +44,8 @@ const postUsuarioService = (req, res) => __awaiter(void 0, void 0, void 0, funct
         };
     }
     catch (error) {
-        return {
-            msg: "Algo salio mal",
-            data: null,
-            error: error.errors,
-        };
+        console.error(error);
+        return error;
     }
 });
 exports.postUsuarioService = postUsuarioService;

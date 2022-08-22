@@ -20,7 +20,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
     catch (error) {
-        return res.status(500).json({
+        return res.status(401).json({
             msj: 'Algo salio mal'
         });
     }

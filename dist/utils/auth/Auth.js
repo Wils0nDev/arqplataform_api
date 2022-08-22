@@ -56,7 +56,7 @@ class Auth {
         return new Promise((resolve, reject) => {
             const payload = { id };
             jsonwebtoken_1.default.sign(payload, secretkey, {
-                expiresIn: 15
+                expiresIn: '120'
             }, (err, token) => {
                 if (err) {
                     console.log(err);

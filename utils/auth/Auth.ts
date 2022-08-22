@@ -36,7 +36,7 @@ export default class Auth {
             const payload = {id}
     
             jwt.sign(payload, secretkey, {
-                expiresIn : 15
+                expiresIn : '120'
             },(err,token)=>{
                 if(err){
                     console.log(err)

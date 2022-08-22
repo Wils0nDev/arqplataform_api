@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes, Model, InferAttributes, InferCreationAttributes, Optional } from 'sequelize';
+import {  DataTypes, Model, InferAttributes, InferCreationAttributes, Optional } from 'sequelize';
 import  mariaDB  from './../../config/dbMariaDb';
 import { UserI } from '../../interfaces/user';
 

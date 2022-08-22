@@ -17,7 +17,7 @@ export const loginUser = async (req:Request, res: Response)=>{
         
     } catch (error) {
         
-       return res.status(500).json({
+       return res.status(401).json({
             msj: 'Algo salio mal'
         })
     }
