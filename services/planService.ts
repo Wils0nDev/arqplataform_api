@@ -10,15 +10,15 @@ export const addPlanService = async (req: Request): Promise<ResponseApi> => {
     const planes = await plan.save();
 
     return {
-      msg: "Usuario registrado correctamente",
+      msg: "Plan registrado correctamente",
       data: planes,
       error: [],
     };
-  } catch (error) {
+  } catch (error:any) {
     return {
-      msg: "Usuario registrado correctamente",
+      msg: "Ocurrio un error",
       data: {},
-      error: error,
+      error: error.errors,
     };
   }
 };

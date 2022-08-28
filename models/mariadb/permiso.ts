@@ -31,3 +31,5 @@ class Permiso extends Model
     tableName: 'permisos',
 
   })
+
+  export default Permiso;

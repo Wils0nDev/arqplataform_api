@@ -26,25 +26,24 @@ export const getUsuario = (req: Request, res: Response) => {
   });
 };
 
-export const postUsuario = async (req: TypedRequestBody<User>, res: Response) => {
+export const postUsuario = async (req: Request, res: Response) => {
   
-  const userObject = Object.keys(req.body)
-  console.log(User.name)
-  for (const property in userObject) {
-        userObject[property] 
-  }
-  // const resp = await postUsuarioService(req,res);
-  
-  // try {
-  //   // if (resp.error.length === 0) {
-  //   //         res.status(201).json(resp);
-  //   //       } else {
-  //   //         res.status(401).json(resp);
-  //   //  }
-  // } catch (error) {
-  //   console.log(error)
-  //   return res.status(500).json(error)
+  // const userObject = Object.keys(req.body)
+  // console.log(User.name)
+  // for (const property in userObject) {
+  //       userObject[property] 
   // }
+  const resp = await postUsuarioService(req);
+  
+  try {
+    if (resp.error.length === 0) {
+            res.status(201).json(resp);
+          } else {
+            res.status(401).json(resp);
+     }
+  } catch (error) {
+    return res.status(500).json(error)
+  }
 
 
 };

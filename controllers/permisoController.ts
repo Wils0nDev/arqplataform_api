@@ -1,14 +1,21 @@
 
 import { Request,Response } from 'express';
-import { addPermisoService } from './../services/permisoService';
+import { addPermissionService } from './../services/permisoService';
 
 
-export const addPermisoController = ( req:Request, res:Response)=> {
+export const addPermissionController = async ( req:Request, res:Response)=> {
 
-    const permiso = addPermisoService(req);
+    const permiso = await addPermissionService(req);
 
-    return res.status(200).json({
-        msg : 'post AddPermisoController'
-    })
+    try {
+        if (permiso.error.length === 0) {
+          res.status(201).json(permiso);
+        } else {
+          res.status(401).json(permiso);
+        }
+      } catch (error) {
+        return res.status(500).json(error)
+      }
 
+      
 }

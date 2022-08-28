@@ -15,10 +15,10 @@ export const getUsuarioService = (req: Request) => {
 };
 
 export const postUsuarioService = async (
-  req: Request,res: Response) => {
+  req: Request) => {
   //errores de middleware
   const { body }  = req;
-  const { password } = req.body;
+  const { password  }  = req.body;
 
   try {
         const user = new User(body);
@@ -28,7 +28,6 @@ export const postUsuarioService = async (
         user.password = Auth.hashPasswordSync(password, salt);
 
         const usuario = await user.save();
-        console.log(usuario)
 
         return {
           msg: "Usuario registrado correctamente",
@@ -36,9 +35,12 @@ export const postUsuarioService = async (
           error: [],
         };
   } catch (error: any) {
-    
-        console.error(error)
-        return error
+
+    return {
+      msg: "Ya existe un usuario",
+      data: null,
+      error: error.errors,
+    };
 
        
 

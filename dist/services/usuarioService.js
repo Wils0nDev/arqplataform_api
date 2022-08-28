@@ -26,7 +26,7 @@ const getUsuarioService = (req) => {
     // const {id} = req.params;
 };
 exports.getUsuarioService = getUsuarioService;
-const postUsuarioService = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const postUsuarioService = (req) => __awaiter(void 0, void 0, void 0, function* () {
     //errores de middleware
     const { body } = req;
     const { password } = req.body;
@@ -36,7 +36,6 @@ const postUsuarioService = (req, res) => __awaiter(void 0, void 0, void 0, funct
         //encriptar contraseña
         user.password = Auth_1.default.hashPasswordSync(password, salt);
         const usuario = yield user.save();
-        console.log(usuario);
         return {
             msg: "Usuario registrado correctamente",
             data: usuario,
@@ -44,8 +43,11 @@ const postUsuarioService = (req, res) => __awaiter(void 0, void 0, void 0, funct
         };
     }
     catch (error) {
-        console.error(error);
-        return error;
+        return {
+            msg: "Ya existe un usuario",
+            data: null,
+            error: error.errors,
+        };
     }
 });
 exports.postUsuarioService = postUsuarioService;

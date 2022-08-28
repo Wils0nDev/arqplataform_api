@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ValidateCampos = exports.UserExist = exports.validateRequest = exports.limitValidate = void 0;
+exports.ValidateCampos = exports.ValidateEmail = exports.limitValidate = void 0;
 const express_validator_1 = require("express-validator");
 const user_1 = __importDefault(require("../models/mariadb/user"));
 const limitValidate = (params) => __awaiter(void 0, void 0, void 0, function* () {
@@ -21,28 +21,20 @@ const limitValidate = (params) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.limitValidate = limitValidate;
-const validateRequest = (req, res, next) => { };
-exports.validateRequest = validateRequest;
-const UserExist = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("userexist");
-    const { email } = req.body;
-    const usuario = yield user_1.default.findOne({ where: { email: email } });
-    if (usuario) {
-        return res.status(401).json({
-            msg: "Ya tiene una cuenta registrada",
-            data: null,
-            error: null,
-        });
+const ValidateEmail = (email = "") => __awaiter(void 0, void 0, void 0, function* () {
+    const existemail = yield user_1.default.findOne({ where: { email: email } });
+    if (existemail) {
+        throw new Error(`Ese correo ya esta registrado`);
     }
-    next();
 });
-exports.UserExist = UserExist;
-const ValidateCampos = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.ValidateEmail = ValidateEmail;
+const ValidateCampos = (req, res, next) => {
+    console.log('hola');
     const errors = (0, express_validator_1.validationResult)(req);
     if (!errors.isEmpty()) {
         return res.status(400).json(errors);
     }
     next();
-});
+};
 exports.ValidateCampos = ValidateCampos;
 //# sourceMappingURL=user.js.map

@@ -15,8 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const usuarioRoutes_1 = __importDefault(require("../v1/routes/usuarioRoutes"));
 const authRoutes_1 = __importDefault(require("../v1/routes/authRoutes"));
-const permisoRoutes_1 = __importDefault(require("../v1/routes/permisoRoutes"));
+const permissionRoutes_1 = __importDefault(require("../v1/routes/permissionRoutes"));
 const planRoutes_1 = __importDefault(require("../v1/routes/planRoutes"));
+const detailPlanPermissionRoutes_1 = __importDefault(require("../v1/routes/detailPlanPermissionRoutes"));
 const apiPath_1 = require("../api_path/apiPath");
 const cors_1 = require("../middlewares/cors");
 const dbMongo_1 = __importDefault(require("./dbMongo"));
@@ -55,8 +56,9 @@ class Server {
     routes() {
         this.app.use(this.apiPaths.auth, authRoutes_1.default);
         this.app.use(this.apiPaths.usuarios, usuarioRoutes_1.default);
-        this.app.use(this.apiPaths.permisos, permisoRoutes_1.default);
         this.app.use(this.apiPaths.plan, planRoutes_1.default);
+        this.app.use(this.apiPaths.permisos, permissionRoutes_1.default);
+        this.app.use(this.apiPaths.detailplanpermission, detailPlanPermissionRoutes_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {

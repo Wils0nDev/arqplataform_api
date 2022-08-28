@@ -8,37 +8,24 @@ export const limitValidate = async (params: ParamSchema) => {
   }
 };
 
-export const validateRequest = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {};
 
-export const UserExist = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  console.log("userexist");
-  const { email } = req.body;
-  const usuario = await User.findOne({ where: { email: email } });
 
-  if (usuario) {
-    return res.status(401).json({
-      msg: "Ya tiene una cuenta registrada",
-      data: null,
-      error: null,
-    });
+
+export const ValidateEmail = async (email = "") => {
+  const existemail =  await User.findOne({ where: { email: email } });
+
+  if (existemail) {
+    throw new Error(`Ese correo ya esta registrado`);
   }
-
-  next();
 };
 
-export const ValidateCampos = async (
+export const ValidateCampos =  (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
+  console.log('hola')
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json(errors);

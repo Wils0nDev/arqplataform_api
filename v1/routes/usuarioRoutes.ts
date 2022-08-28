@@ -1,13 +1,13 @@
 import { Router } from "express";
+import { check } from "express-validator";
 import { getUsuario, getUsuarios, postUsuario, putUsuario } from "../../controllers/usuarioController";
-import { UserExist, ValidateCampos } from '../../middlewares/user';
+import {  ValidateCampos } from '../../middlewares/user';
 
 const router = Router();
-
 router.get('/',getUsuarios);
 router.get('/:id', getUsuario);
 router.post('/register', [
-    UserExist,
+    check("email","Esto no es un email").isEmail(),
     ValidateCampos
 ],
 postUsuario);

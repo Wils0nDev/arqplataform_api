@@ -12,7 +12,7 @@ class Planes extends Model
     descripcion!: string;
     vigencia!: number;
     precio!: number;
-    defecto!: number;
+    defecto!: number; 
     estado!: number;
     createdAt?: Date
     updatedAt?: Date 
@@ -21,7 +21,10 @@ class Planes extends Model
    }
 
 Planes.init({
-    id: { type: DataTypes.INTEGER.UNSIGNED,autoIncrement: true,primaryKey: true},
+    id: { 
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true
+      ,primaryKey: true},
     descripcion: {type: DataTypes.STRING, allowNull: false},
     vigencia: {type: DataTypes.NUMBER, allowNull: false},
     precio: {type: DataTypes.NUMBER, allowNull: false},

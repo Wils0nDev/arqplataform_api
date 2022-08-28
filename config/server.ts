@@ -1,9 +1,9 @@
 import express, {Application} from "express";
 import  usuarioRoutes from "../v1/routes/usuarioRoutes";
 import  authRoutes from "../v1/routes/authRoutes";
-import permisoRoutes from "../v1/routes/permisoRoutes";
+import permissionRoutes from "../v1/routes/permissionRoutes";
 import planRoutes from "../v1/routes/planRoutes";
-
+import detailplanpermission from "../v1/routes/detailPlanPermissionRoutes"
 
 import { apiPaths } from '../api_path/apiPath';
 import { Cors } from "../middlewares/cors";
@@ -52,8 +52,9 @@ class Server {
     routes(){
         this.app.use(this.apiPaths.auth, authRoutes)
         this.app.use(this.apiPaths.usuarios, usuarioRoutes)
-        this.app.use(this.apiPaths.permisos,permisoRoutes )
         this.app.use(this.apiPaths.plan,planRoutes )
+        this.app.use(this.apiPaths.permisos,permissionRoutes )
+        this.app.use(this.apiPaths.detailplanpermission, detailplanpermission)
     }
 
     listen(){

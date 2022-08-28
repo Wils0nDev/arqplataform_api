@@ -21,11 +21,12 @@ CREATE TABLE Permisos (
 );
 
 
-CREATE TABLE DetallePlanPermisos (
+CREATE TABLE DetailPlanPermission (
     idplan INT ,
     idpermiso INT,
     estado bit,
     createdAt datetime DEFAULT current_timestamp(),
     updatedAt datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-    deletedAt datetime DEFAULT NULL
+    deletedAt datetime DEFAULT NULL,
+    CONSTRAINT uc_plan_permiso UNIQUE (idplan,idpermiso)
 );
